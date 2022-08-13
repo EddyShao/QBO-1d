@@ -1,21 +1,52 @@
-# QBO-1d
+# Data-Driven Gravity Wave Parameterization in QBO-1d model
 QBO research related stuff
 
 ## Motivation, Background, and Setup
 
 
 ### Gravity Waves Parametrization
+The tropical stratospheric Quasi-Biennial Oscillation is driven largely by parametrized gravity wave breaking, which makes its parametrization an interesting and necessary task to do. 
+
+Currently, the parametrization is largely based on the physics. We hope by adopting machine learning, we can have a parametrization with improved accuracy and computation feasibility.
+
 
 ### Quasi-Biennual Oscillation
+Our project is located in a very interesting fact in Atomespheric Fluid Dynamics called Quasi-Biennual Oscillation, QBO for short. Equatorial zonal wind oscillates between easterlies and westerlies in the tropical stratosphere with a mean period of 28 to 29 months (quasi-biennial) due to gravity waves forcing. 
+
+Our job, therefore, is to parametrize the gravity waves inside the oscillation. In particular, our work is largely based on the 1-dim QBO model. 
 
 
 ### QBO-1d
+The QBO-1d model is largely a hybrid of the models used by Holton and Linden (1972) and Plumb (1977). The (advection-diffussion) equation reads:
 
+$$\frac{\partial u}{\partial t} +
+        w \frac{\partial u}{\partial z} -
+        \kappa \frac{\partial^2 u}{\partial z^2}
+        = - S(u, z)$$
+
+where $u$ is the zonal wind, $w$ and $k$ are the advection and difussion constants, and $z$ is the vertical coordinate. In particular, $S$
+ is the gravity wave forcing term, which is our focus.
 
 ### Physical Parametrization with Stochasticity
+Currently, the forcing term is parametrized in the following way.
 
+$$S(u, z) = \frac{1}{\rho} \frac{\partial}{\partial z} F(u, z)$$
+where the wave flux 𝐹(𝑢,𝑧) is parameterized as follows:
+$$F(u, z) = \sum_{i} A_{i}
+\exp\left\{ - \int_{z_1}^{z} g_{i}(u, z') \, dz' \right\}, \quad A(c) = \text{sgn}(c) B_m
+\exp\left[- \ln{2} \left(\frac{c}{c_w}\right)^2 \right]$$
+
+Note that, when $z = z_1$, $F(u, z_1) = \sum_i A_i$, denoted $F_{S_0}$(total source flux).
+
+The stochasticity enters the story by by making $F_{S_0}$￼(total source flux) and $C_w$ (spectral width) Random Variables of time.
+
+### Data-Driven parametrizations
+The pipeline of the project can be visualized as the follow image.
+![Pipeline]()
 
 ### Goals: Online and Offline
+
+
 
 
 
